@@ -89,26 +89,32 @@ tasks:
       cd frontend && npm install && npm run serve
 
   - name: gateway
+    init: gp sync-await init-java
     command: >
       cd gateway && mvn spring-boot:run
 
   - name: room
+    init: gp sync-await init-java
     command: >
       cd room && mvn spring-boot:run
       
   - name: reservation
+    init: gp sync-await init-java
     command: >
       cd reservation && mvn spring-boot:run
 
   - name: message
+    init: gp sync-await init-java
     command: >
       cd message && mvn spring-boot:run
 
   - name: payment
+    init: gp sync-await init-java
     command: >
       cd payment && mvn spring-boot:run
 
   - name: viewpage
+    init: gp sync-await init-java
     command: >
       cd viewpage && mvn spring-boot:run
 
@@ -117,6 +123,7 @@ tasks:
   #     cd keycloak && docker-compose up -d
 
   - name: bash
+    init: gp sync-await init-java
     command: >
       
 
