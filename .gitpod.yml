@@ -86,7 +86,7 @@ tasks:
 
   - name: frontend
     command: >
-      cd frontend && npm install && npm run serve
+      cd frontend
 
   - name: gateway
     command: >
@@ -111,11 +111,6 @@ tasks:
   - name: viewpage
     command: >
       cd viewpage
-
-  - name: keycloak
-    command: >
-      cd keycloak
-#       && docker-compose up -d
 
   - name: bash
     command: >
