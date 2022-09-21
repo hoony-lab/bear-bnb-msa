@@ -86,39 +86,31 @@ tasks:
 
   - name: frontend
     command: >
-      cd frontend
-      npm install
-      npm run serve
+      cd frontend && npm install && npm run serve
 
   - name: gateway
     command: >
-      cd gateway
-      mvn spring-boot:run
+      cd gateway && mvn spring-boot:run
 
   - name: room
     command: >
-      cd room
-      mvn spring-boot:run
+      cd room && mvn spring-boot:run
       
   - name: reservation
     command: >
-      cd reservation
-      mvn spring-boot:run
+      cd reservation && mvn spring-boot:run
 
   - name: message
     command: >
-      cd message
-      mvn spring-boot:run
+      cd message && mvn spring-boot:run
 
   - name: payment
     command: >
-      cd payment
-      mvn spring-boot:run
+      cd payment && mvn spring-boot:run
 
   - name: viewpage
     command: >
-      cd viewpage
-      mvn spring-boot:run
+      cd viewpage && mvn spring-boot:run
 
   # - name: keycloak
   #   command: >
