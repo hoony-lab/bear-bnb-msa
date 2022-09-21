@@ -100,9 +100,6 @@
             },
         }),
         computed:{
-            userRoles() {
-                return localStorage.getItem('user_client_roles');
-            } 
         },
         methods: {
             selectFile(){
