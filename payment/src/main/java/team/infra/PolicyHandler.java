@@ -39,6 +39,24 @@ public class PolicyHandler {
         // Sample Logic //
         Payment.cancelPayment(event);
     }
+
+    @StreamListener(
+        value = KafkaProcessor.INPUT,
+        condition = "headers['type']=='ReservationRequested'"
+    )
+    public void wheneverReservationRequested_AffirmPayment(
+        @Payload ReservationRequested reservationRequested
+    ) {
+        ReservationRequested event = reservationRequested;
+        System.out.println(
+            "\n\n##### listener AffirmPayment : " +
+            reservationRequested +
+            "\n\n"
+        );
+
+        // Sample Logic //
+        Payment.affirmPayment(event);
+    }
     // keep
 
 }

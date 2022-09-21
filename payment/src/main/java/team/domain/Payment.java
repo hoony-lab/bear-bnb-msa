@@ -66,4 +66,26 @@ public class Payment {
         */
 
     }
+
+    public static void affirmPayment(
+        ReservationRequested reservationRequested
+    ) {
+        /** Example 1:  new item 
+        Payment payment = new Payment();
+        repository().save(payment);
+
+        */
+
+        /** Example 2:  finding and process
+        
+        repository().findById(reservationRequested.get???()).ifPresent(payment->{
+            
+            payment // do something
+            repository().save(payment);
+
+
+         });
+        */
+
+    }
 }

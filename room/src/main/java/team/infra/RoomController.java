@@ -17,5 +17,26 @@ public class RoomController {
 
     @Autowired
     RoomRepository roomRepository;
+
+    @RequestMapping(
+        value = "rooms/{id}/register room",
+        method = RequestMethod.PUT,
+        produces = "application/json;charset=UTF-8"
+    )
+    public Room registerRoom(
+        @PathVariable(value = "id") Long id,
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws Exception {
+        System.out.println("##### /room/registerRoom  called #####");
+        Optional<Room> optionalRoom = roomRepository.findById(id);
+
+        optionalRoom.orElseThrow(() -> new Exception("No Entity Found"));
+        Room room = optionalRoom.get();
+        room.registerRoom();
+
+        roomRepository.save(room);
+        return room;
+    }
     // keep
 }

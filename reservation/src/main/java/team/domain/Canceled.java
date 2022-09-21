@@ -1,9 +1,9 @@
 package team.domain;
 
-import java.util.*;
-import lombok.*;
 import team.domain.*;
 import team.infra.AbstractEvent;
+import java.util.*;
+import lombok.*;
 
 @Data
 @ToString
@@ -16,11 +16,10 @@ public class Canceled extends AbstractEvent {
     private Date reserveDate;
     private String reserveStatus;
 
-    public Canceled(Reservation aggregate) {
+    public Canceled( aggregate){
         super(aggregate);
     }
-
-    public Canceled() {
+    public Canceled(){
         super();
     }
     // keep

@@ -12,6 +12,12 @@ public class RoomHateoasProcessor
 
     @Override
     public EntityModel<Room> process(EntityModel<Room> model) {
+        model.add(
+            Link
+                .of(model.getRequiredLink("self").getHref() + "/register room")
+                .withRel("register room")
+        );
+
         return model;
     }
 }

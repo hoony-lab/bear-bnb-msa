@@ -31,15 +31,6 @@ public class Reservation {
 
     @PostPersist
     public void onPostPersist() {
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-
-        team.external.Payment payment = new team.external.Payment();
-        // mappings goes here
-        ReservationApplication.applicationContext
-            .getBean(team.external.PaymentService.class)
-            .pay(payment);
-
         ReservationRequested reservationRequested = new ReservationRequested(
             this
         );

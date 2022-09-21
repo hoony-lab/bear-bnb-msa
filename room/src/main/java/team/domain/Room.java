@@ -9,7 +9,6 @@ import team.domain.RoomAffirmed;
 import team.domain.RoomCancled;
 import team.domain.RoomDeleted;
 import team.domain.RoomModified;
-import team.domain.RoomRegistered;
 
 @Entity
 @Table(name = "Room_table")
@@ -30,9 +29,6 @@ public class Room {
 
     @PostPersist
     public void onPostPersist() {
-        RoomRegistered roomRegistered = new RoomRegistered(this);
-        roomRegistered.publishAfterCommit();
-
         RoomAffirmed roomAffirmed = new RoomAffirmed(this);
         roomAffirmed.publishAfterCommit();
 
@@ -57,6 +53,11 @@ public class Room {
             RoomRepository.class
         );
         return roomRepository;
+    }
+
+    public void registerRoom() {
+        RoomRegistered roomRegistered = new RoomRegistered(this);
+        roomRegistered.publishAfterCommit();
     }
 
     public static void updateReviewCnt(ReviewRegistered reviewRegistered) {
