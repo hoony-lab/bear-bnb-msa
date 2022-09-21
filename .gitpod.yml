@@ -18,12 +18,12 @@ tasks:
 
   - name: java
     command: >
-      sdk install java 11.0.16-ms < /dev/null &&
-      sdk default java 11.0.16-ms &&
+      sdk install java 17.0.3-ms < /dev/null &&
+      sdk default java 17.0.3-ms &&
       java --version &&
       gp sync-done init-java && exit
-#      sdk install java 17.0.3-ms < /dev/null &&
-#      sdk default java 17.0.3-ms &&
+#      sdk install java 11.0.16-ms < /dev/null &&
+#      sdk default java 11.0.16-ms &&
 
   - name: kafka-docker
     command: > 
