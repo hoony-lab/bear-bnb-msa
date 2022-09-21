@@ -10,10 +10,19 @@ import team.infra.AbstractEvent;
 public class PaymentCanceled extends AbstractEvent {
 
     private Long id;
-    private Long reservationId;
-    private Integer paymentAmount;
-    private Date paymentDate;
-    private String paymentStatus;
+    private Long roomId;
+    private Long paymentId;
+    private Long customerId;
+    private Date reserveDate;
+    private String reserveStatus;
+
+    public PaymentCanceled(Reservation aggregate) {
+        super(aggregate);
+    }
+
+    public PaymentCanceled() {
+        super();
+    }
     // keep
 
 }

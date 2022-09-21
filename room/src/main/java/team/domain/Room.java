@@ -100,7 +100,7 @@ public class Room {
 
     }
 
-    public static void affirmRoom(Reserved reserved) {
+    public static void affirmRoom(PaymentAffirmed paymentAffirmed) {
         /** Example 1:  new item 
         Room room = new Room();
         repository().save(room);
@@ -111,7 +111,7 @@ public class Room {
 
         /** Example 2:  finding and process
         
-        repository().findById(reserved.get???()).ifPresent(room->{
+        repository().findById(paymentAffirmed.get???()).ifPresent(room->{
             
             room // do something
             repository().save(room);
@@ -124,7 +124,7 @@ public class Room {
 
     }
 
-    public static void cancelRoom(Canceled canceled) {
+    public static void cancelRoom(PaymentCanceled paymentCanceled) {
         /** Example 1:  new item 
         Room room = new Room();
         repository().save(room);
@@ -135,7 +135,7 @@ public class Room {
 
         /** Example 2:  finding and process
         
-        repository().findById(canceled.get???()).ifPresent(room->{
+        repository().findById(paymentCanceled.get???()).ifPresent(room->{
             
             room // do something
             repository().save(room);

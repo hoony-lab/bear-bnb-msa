@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 import team.PaymentApplication;
-import team.domain.Paid;
+import team.domain.PaymentAffirmed;
 import team.domain.PaymentCanceled;
 
 @Entity
@@ -30,8 +30,8 @@ public class Payment {
         PaymentCanceled paymentCanceled = new PaymentCanceled(this);
         paymentCanceled.publishAfterCommit();
 
-        Paid paid = new Paid(this);
-        paid.publishAfterCommit();
+        PaymentAffirmed paymentAffirmed = new PaymentAffirmed(this);
+        paymentAffirmed.publishAfterCommit();
     }
 
     public static PaymentRepository repository() {

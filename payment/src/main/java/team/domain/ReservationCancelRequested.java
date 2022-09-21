@@ -1,10 +1,9 @@
 package team.domain;
 
-import java.util.*;
-import lombok.*;
 import team.domain.*;
 import team.infra.AbstractEvent;
-
+import lombok.*;
+import java.util.*;
 @Data
 @ToString
 public class ReservationCancelRequested extends AbstractEvent {
@@ -15,6 +14,9 @@ public class ReservationCancelRequested extends AbstractEvent {
     private Long customerId;
     private Date reserveDate;
     private String reserveStatus;
-    // keep
+
+// keep
 
 }
+
+

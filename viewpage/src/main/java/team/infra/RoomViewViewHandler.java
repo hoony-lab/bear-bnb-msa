@@ -36,9 +36,11 @@ public class RoomViewViewHandler {
     }
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void whenReserved_then_UPDATE_1(@Payload Reserved reserved) {
+    public void whenPaymentAffirmed_then_UPDATE_1(
+        @Payload PaymentAffirmed paymentAffirmed
+    ) {
         try {
-            if (!reserved.validate()) return;
+            if (!paymentAffirmed.validate()) return;
             // view 객체 조회
 
         } catch (Exception e) {

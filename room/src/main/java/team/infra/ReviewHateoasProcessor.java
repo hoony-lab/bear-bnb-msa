@@ -1,17 +1,19 @@
 package team.infra;
+import team.domain.*;
 
-import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelProcessor;
 import org.springframework.stereotype.Component;
-import team.domain.*;
+import org.springframework.hateoas.EntityModel;
 
 @Component
-public class ReviewHateoasProcessor
-    implements RepresentationModelProcessor<EntityModel<Review>> {
+public class ReviewHateoasProcessor implements RepresentationModelProcessor<EntityModel<Review>>  {
 
     @Override
     public EntityModel<Review> process(EntityModel<Review> model) {
+
+        
         return model;
     }
+    
 }

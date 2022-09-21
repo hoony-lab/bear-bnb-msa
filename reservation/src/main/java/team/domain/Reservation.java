@@ -5,10 +5,10 @@ import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 import team.ReservationApplication;
-import team.domain.Canceled;
+import team.domain.PaymentAffirmed;
+import team.domain.PaymentCanceled;
 import team.domain.ReservationCancelRequested;
 import team.domain.ReservationRequested;
-import team.domain.Reserved;
 
 @Entity
 @Table(name = "Reservation_table")
@@ -41,11 +41,11 @@ public class Reservation {
         );
         reservationCancelRequested.publishAfterCommit();
 
-        Reserved reserved = new Reserved(this);
-        reserved.publishAfterCommit();
+        PaymentAffirmed paymentAffirmed = new PaymentAffirmed(this);
+        paymentAffirmed.publishAfterCommit();
 
-        Canceled canceled = new Canceled(this);
-        canceled.publishAfterCommit();
+        PaymentCanceled paymentCanceled = new PaymentCanceled(this);
+        paymentCanceled.publishAfterCommit();
     }
 
     public static ReservationRepository repository() {
@@ -55,37 +55,37 @@ public class Reservation {
         return reservationRepository;
     }
 
-    public static void affirmPayment(Paid paid) {
+    public static void affirmPayment(PaymentAffirmed paymentAffirmed) {
         /** Example 1:  new item 
         Reservation reservation = new Reservation();
         repository().save(reservation);
 
-        Reserved reserved = new Reserved(reservation);
-        reserved.publishAfterCommit();
+        PaymentAffirmed paymentAffirmed = new PaymentAffirmed(reservation);
+        paymentAffirmed.publishAfterCommit();
         */
 
         /** Example 2:  finding and process
         
-        repository().findById(paid.get???()).ifPresent(reservation->{
+        repository().findById(paymentAffirmed.get???()).ifPresent(reservation->{
             
             reservation // do something
             repository().save(reservation);
 
-            Reserved reserved = new Reserved(reservation);
-            reserved.publishAfterCommit();
+            PaymentAffirmed paymentAffirmed = new PaymentAffirmed(reservation);
+            paymentAffirmed.publishAfterCommit();
 
          });
         */
 
     }
 
-    public static void affirmCancelPayment(PaymentCanceled paymentCanceled) {
+    public static void cancelPayment(PaymentCanceled paymentCanceled) {
         /** Example 1:  new item 
         Reservation reservation = new Reservation();
         repository().save(reservation);
 
-        Canceled canceled = new Canceled(reservation);
-        canceled.publishAfterCommit();
+        PaymentCanceled paymentCanceled = new PaymentCanceled(reservation);
+        paymentCanceled.publishAfterCommit();
         */
 
         /** Example 2:  finding and process
@@ -95,8 +95,8 @@ public class Reservation {
             reservation // do something
             repository().save(reservation);
 
-            Canceled canceled = new Canceled(reservation);
-            canceled.publishAfterCommit();
+            PaymentCanceled paymentCanceled = new PaymentCanceled(reservation);
+            paymentCanceled.publishAfterCommit();
 
          });
         */

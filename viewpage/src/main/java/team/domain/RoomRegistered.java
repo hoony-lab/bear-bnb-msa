@@ -1,8 +1,8 @@
 package team.domain;
 
-import java.util.*;
-import lombok.Data;
 import team.infra.AbstractEvent;
+import lombok.Data;
+import java.util.Date;
 
 @Data
 public class RoomRegistered extends AbstractEvent {

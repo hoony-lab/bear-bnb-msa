@@ -5,7 +5,7 @@ import lombok.Data;
 import team.infra.AbstractEvent;
 
 @Data
-public class Reserved extends AbstractEvent {
+public class PaymentAffirmed extends AbstractEvent {
 
     private Long id;
     private Long roomId;

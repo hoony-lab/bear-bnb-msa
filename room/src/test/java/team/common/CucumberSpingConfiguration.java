@@ -1,9 +1,12 @@
 package team.common;
 
+
+import team.RoomApplication;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import team.RoomApplication;
 
 @CucumberContextConfiguration
 @SpringBootTest(classes = { RoomApplication.class })
-public class CucumberSpingConfiguration {}
+public class CucumberSpingConfiguration {
+    
+}

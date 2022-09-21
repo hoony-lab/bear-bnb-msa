@@ -1,9 +1,9 @@
 package team.domain;
 
-import java.util.*;
-import lombok.*;
 import team.domain.*;
 import team.infra.AbstractEvent;
+import java.util.*;
+import lombok.*;
 
 @Data
 @ToString
@@ -15,11 +15,10 @@ public class RoomRegistered extends AbstractEvent {
     private Double price;
     private Long reviewCnt;
 
-    public RoomRegistered(Room aggregate) {
+    public RoomRegistered(Room aggregate){
         super(aggregate);
     }
-
-    public RoomRegistered() {
+    public RoomRegistered(){
         super();
     }
     // keep

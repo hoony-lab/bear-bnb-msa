@@ -7,7 +7,7 @@ import team.infra.AbstractEvent;
 
 @Data
 @ToString
-public class Paid extends AbstractEvent {
+public class PaymentAffirmed extends AbstractEvent {
 
     private Long id;
     private Long reservationId;
@@ -15,11 +15,11 @@ public class Paid extends AbstractEvent {
     private Date paymentDate;
     private String paymentStatus;
 
-    public Paid(Payment aggregate) {
+    public PaymentAffirmed(Payment aggregate) {
         super(aggregate);
     }
 
-    public Paid() {
+    public PaymentAffirmed() {
         super();
     }
     // keep

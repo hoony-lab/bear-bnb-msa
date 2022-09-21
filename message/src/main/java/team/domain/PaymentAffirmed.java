@@ -7,7 +7,7 @@ import team.infra.AbstractEvent;
 
 @Data
 @ToString
-public class Canceled extends AbstractEvent {
+public class PaymentAffirmed extends AbstractEvent {
 
     private Long id;
     private Long roomId;

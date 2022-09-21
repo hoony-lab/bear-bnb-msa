@@ -24,14 +24,16 @@ public class PolicyHandler {
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='Reserved'"
+        condition = "headers['type']=='PaymentAffirmed'"
     )
-    public void wheneverReserved_SendReservationMessage(
-        @Payload Reserved reserved
+    public void wheneverPaymentAffirmed_SendReservationMessage(
+        @Payload PaymentAffirmed paymentAffirmed
     ) {
-        Reserved event = reserved;
+        PaymentAffirmed event = paymentAffirmed;
         System.out.println(
-            "\n\n##### listener SendReservationMessage : " + reserved + "\n\n"
+            "\n\n##### listener SendReservationMessage : " +
+            paymentAffirmed +
+            "\n\n"
         );
 
         // Sample Logic //
@@ -40,15 +42,15 @@ public class PolicyHandler {
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='Canceled'"
+        condition = "headers['type']=='PaymentCanceled'"
     )
-    public void wheneverCanceled_SendCancelReservationMessage(
-        @Payload Canceled canceled
+    public void wheneverPaymentCanceled_SendCancelReservationMessage(
+        @Payload PaymentCanceled paymentCanceled
     ) {
-        Canceled event = canceled;
+        PaymentCanceled event = paymentCanceled;
         System.out.println(
             "\n\n##### listener SendCancelReservationMessage : " +
-            canceled +
+            paymentCanceled +
             "\n\n"
         );
 

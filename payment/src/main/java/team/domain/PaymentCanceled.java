@@ -1,9 +1,9 @@
 package team.domain;
 
-import java.util.*;
-import lombok.*;
 import team.domain.*;
 import team.infra.AbstractEvent;
+import java.util.*;
+import lombok.*;
 
 @Data
 @ToString
@@ -15,11 +15,10 @@ public class PaymentCanceled extends AbstractEvent {
     private Date paymentDate;
     private String paymentStatus;
 
-    public PaymentCanceled(Payment aggregate) {
+    public PaymentCanceled(Payment aggregate){
         super(aggregate);
     }
-
-    public PaymentCanceled() {
+    public PaymentCanceled(){
         super();
     }
     // keep
