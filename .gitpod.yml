@@ -18,10 +18,12 @@ tasks:
 
   - name: java
     command: >
-      sdk install java 17.0.3-ms < /dev/null &&
-      sdk default java 17.0.3-ms &&
+      sdk install java 11.0.16-ms < /dev/null &&
+      sdk default java 11.0.16-ms &&
       java --version &&
       gp sync-done init-java && exit
+#      sdk install java 17.0.3-ms < /dev/null &&
+#      sdk default java 17.0.3-ms &&
 
   - name: kafka-docker
     command: > 
@@ -82,5 +84,37 @@ tasks:
       chmod 700 get_helm.sh &&
       ./get_helm.sh && exit
 
-  - name: name
+  # - name: frontend
+  #   command: >
+  #     cd frontend && mvn spring-boot:run
+
+  - name: gateway
     command: >
+      cd gateway && mvn spring-boot:run
+
+  - name: room
+    command: >
+      cd room && mvn spring-boot:run
+      
+  - name: reservation
+    command: >
+      cd reservation && mvn spring-boot:run
+
+  - name: message
+    command: >
+      cd message && mvn spring-boot:run
+
+  - name: payment
+    command: >
+      cd payment && mvn spring-boot:run
+
+  - name: viewpage
+    command: >
+      cd viewpage && mvn spring-boot:run
+
+  # - name: keycloak
+  #   command: >
+  #     cd keycloak && docker-compose up -d
+
+
+
