@@ -1,4 +1,72 @@
-# msa-capstone-project
+# 숙소예약 서비스 (BearBnB not AirBnB)
+
+## DAY 1
+
+1. 분석설계
+- 4개 Boundary Context
+- Room, Reservation, Payment, Message, (+ViewPage)
+
+2. SAGA Pattern (Pub / Sub)
+- Kafka 구현
+- https://sarc.io/index.php/development/2128-saga-pattern
+Saga Pattern은 마이크로 서비스에서 데이터 일관성을 관리하는 방법입니다.
+각 서비스는 로컬 트랜잭션을 가지고 있으며, 해당 서비스 데이터를 업데이트하며 메시지 또는 이벤트를 발행해서, 다음 단계 트랜잭션을 호출하게 됩니다.
+만약, 해당 프로세스가 실패하게 되면 데이터 정합성을 맞추기 위해 이전 트랜잭션에 대해 보상 트랜잭션을 실행합니다.
+NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른 서비스에서 다른 DB 밴더사를 이용할 경우에도 Saga Pattenrn을 이용해서 데이터 일관성을 보장 받을 수 있습니다.
+
+3. CQRS Pattern (Command Query Responsibility Segregation)
+- ViewPage 구현
+- 명령 / 조회 책임 분리
+- Define a view database, which is a read-only by subscribing
+
+4. Correlation / Compensation(Unique Key)
+- 유니크키, FooCancelled 구현
+- 데이터 일관성 처리를 위해 전달하는 key = Correlation-key
+- 트랜젝션 실패 시 데이터의 일관성 유지를 위해 Rollback 처리 가능 = Compensation
+- 데이터 일관성과 무결성 유지 !
+- 상관관계 / 보상
+
+5. Request / Response (Feign Client / Sync.Async)
+- @FeignClient(name ="Foofeign", url="api.github.com/foo", configuration = "Config.class")
+- REST 호출을 도와주는 Http Client Binder가 Feign Client 
+- JPA는 인터페이스만으로 그 과정을 모두 축소
+- Feign을 적용하면 번거로운 RestTemplate과 같은 호출 방식을 인터페이스 하나만으로 축소
+
+6. Gateway
+- KeyCloak, Spring Gateway 구현
+- 라우팅
+
+7. Deploy / Pipeline 
+- AWS CodeDeploy, Jenkins 구현
+- CI/CD
+
+8. Circuit Breaker
+- istio 구현
+- 요청이 과도할 경우 CB 를 통하여 장애격리, 장애전파차단
+
+9. Autoscale(HPA)
+- K8S, HorizontalPodAutoscaler kind
+
+10. Self-Healing(Liveness Probe)
+- K8S, livenessProbe (deployment.yml)
+
+11. Zero-Downtime Deploy(Readiness Probe)
+- K8S, ReadinessProbe (deployment.yml)
+
+12. Config Map / Persistence Volume
+- K8S, ConfigMap kind (cofingmap.yml)
+
+13. Polyglot (X)
+- MongoDB/MariaDB/MYSQL, java(spring)/python(flask,fastAPI)
+- Polyglot Persistence/Programming
+- 각 마이크로 서비스들의 구현 목표와 기능 특성에 따른 각자의 기술 Stack 과 저장소 구조를 다양하게 채택하여 설계
+
+
+
+-----
+-----
+
+
 
 <img src= "https://t1.daumcdn.net/cfile/tistory/997A00365C79475E04?download">
 
