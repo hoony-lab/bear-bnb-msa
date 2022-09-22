@@ -54,14 +54,17 @@ NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른
 - K8S, ReadinessProbe (deployment.yml)
 
 12. Config Map / Persistence Volume
-- K8S, ConfigMap kind (cofingmap.yml)
+- K8S, ConfigMap kind (configmap.yml)
 
 13. Polyglot (X)
 - MongoDB/MariaDB/MYSQL, java(spring)/python(flask,fastAPI)
 - Polyglot Persistence/Programming
 - 각 마이크로 서비스들의 구현 목표와 기능 특성에 따른 각자의 기술 Stack 과 저장소 구조를 다양하게 채택하여 설계
 
+## Day 2
+/usr/local/kafka/bin/kafka-console-producer.sh --broker-list http://localhost:9092 --topic team
 
+/usr/local/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic team --from-beginning
 
 -----
 -----
