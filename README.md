@@ -1,21 +1,20 @@
 # 숙소예약 서비스 (BearBnB not AirBnB)
 
-------------
+---
 
-
-1. 분석설계
- > 1. 호스트가 객실(Room)을 등록/수정/삭제한다.
- > 2. 고객이 객실(Room)을 예약한다.
- > 3. 예약과 동시에 결제가 진행된다.
- > 4. 고객이 예약을 취소할 수 있다.
- > 5. 객실에 후기(review)를 남길 수 있다.
- > 6. 객실에 대한 정보를 한 화면(dashboard)에서 확인 할 수 있다.
+## 1. 분석설계
+  - 호스트가 객실(Room)을 등록/수정/삭제한다.
+  - 고객이 객실(Room)을 예약한다.
+  - 예약과 동시에 결제가 진행된다.
+  - 고객이 예약을 취소할 수 있다.
+  - 객실에 후기(review)를 남길 수 있다.
+  - 객실에 대한 정보를 한 화면(dashboard)에서 확인 할 수 있다.  
 ![image](https://user-images.githubusercontent.com/61038710/191678655-b61525dc-bead-4f49-bd51-02ea0f8d0b18.png)
 
+---
 
-------------
-2. SAGA Pattern (Pub / Sub)
-  > kafka를 이용하여 4개의 마이크로서비스로 연동한다.
+## 2. SAGA Pattern (Pub / Sub)
+  - kafka를 이용하여 4개의 마이크로서비스로 연동한다.
   + 객실(Room) 
     + ![image](https://user-images.githubusercontent.com/61038710/191680079-6090ee97-3594-49a1-86d8-f28c59d3e148.png)
   + 예약(Reservation)
@@ -28,27 +27,28 @@
     
 
 - Kafka 구현
-- https://sarc.io/index.php/development/2128-saga-pattern
+- https://sarc.io/index.php/development/2128-saga-pattern  
 Saga Pattern은 마이크로 서비스에서 데이터 일관성을 관리하는 방법입니다.
 각 서비스는 로컬 트랜잭션을 가지고 있으며, 해당 서비스 데이터를 업데이트하며 메시지 또는 이벤트를 발행해서, 다음 단계 트랜잭션을 호출하게 됩니다.
 만약, 해당 프로세스가 실패하게 되면 데이터 정합성을 맞추기 위해 이전 트랜잭션에 대해 보상 트랜잭션을 실행합니다.
 NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른 서비스에서 다른 DB 밴더사를 이용할 경우에도 Saga Pattenrn을 이용해서 데이터 일관성을 보장 받을 수 있습니다.
 
-------------
+---
 
-3. CQRS Pattern (Command Query Responsibility Segregation)
+## 3. CQRS Pattern (Command Query Responsibility Segregation)
+- Room 등록 및 수정된 데이터가 조회되는 모습이다.
 - ![image](https://user-images.githubusercontent.com/44036052/191693434-c8098af4-2df0-49af-82ae-54698b1be5ff.png)
 - ![image](https://user-images.githubusercontent.com/44036052/191693680-c86f7edb-40bc-4e40-890a-fd5353054692.png)
 - ![image](https://user-images.githubusercontent.com/44036052/191693812-56832582-4ff9-49b3-bd31-e08733b9cf0a.png)
 - ![image](https://user-images.githubusercontent.com/44036052/191693918-64fdc629-5b5d-4af7-b23a-30a5b71bb0a0.png)
 
-- ViewPage 구현
+- Dashboard 구현
 - 명령 / 조회 책임 분리
 - Define a view database, which is a read-only by subscribing
 
-------------
+---
 
-4. Correlation / Compensation(Unique Key)
+## 4. Correlation / Compensation(Unique Key)
   - 객실에 대한 리뷰 등록 및 삭제 시 방(Room)의 리뷰 수(ReviewCnt)가 갱신된다.
   - 예약 취소 시 결제 취소도 자동으로 수행된다
   - 결제 후 예약 확정 시 객실에 대한 상태값도 갱신된다.
@@ -60,26 +60,27 @@ NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른
 - 트랜젝션 실패 시 데이터의 일관성 유지를 위해 Rollback 처리 가능 = Compensation
 - 데이터 일관성과 무결성 유지 !
 - 상관관계 / 보상
-- 
-------------
-5. Request / Response (Feign Client / Sync.Async)
+
+---
+
+## 5. Request / Response (Feign Client / Sync.Async)
 - `Payment` 서비스가 정상적으로 작동하지 않아도 `PaymentServiceFallback`이 예상 실패 로직을 수행한다.  
 - ![image](https://user-images.githubusercontent.com/44036052/191689742-f3fa55fe-7b74-4680-9f59-6b5a25b855d5.png)
 - ![image](https://user-images.githubusercontent.com/44036052/191689882-d3618edc-ea2e-45f0-99a1-28e047b0199f.png)
 
 - Fallback 로직이 없어서 500에러가 나오는 모습이다.
 - ![image](https://user-images.githubusercontent.com/44036052/191691507-50ed7ea8-368e-47c0-87a7-16a32355b2b8.png)
-- Fallback 로직을 적용 후 500에러가 없는 모습이다.
+- Fallback 로직을 적용 후 200만 나오는 모습이다.
 - ![image](https://user-images.githubusercontent.com/44036052/191692593-966f90cd-5a1f-456e-ba46-8783cd07eed2.png)
-
-
 
 - @FeignClient(name ="Foofeign", url="api.github.com/foo", configuration = "Config.class")
 - REST 호출을 도와주는 Http Client Binder가 Feign Client 
 - JPA는 인터페이스만으로 그 과정을 모두 축소
 - Feign을 적용하면 번거로운 RestTemplate과 같은 호출 방식을 인터페이스 하나만으로 축소
 
-6. Gateway
+---
+
+## 6. Gateway
 - gateway를 8088포트로 실행하여 gateway를 통해 각 micro service를 호출한다.
 - ![image](https://user-images.githubusercontent.com/61038710/191685577-86b7b303-6bfb-4de6-be9d-cd1a847a0d75.png)
 ![image](https://user-images.githubusercontent.com/61038710/191685804-3be93128-64d2-4957-b474-f075db7c9123.png)
@@ -88,39 +89,51 @@ NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른
 - KeyCloak, Spring Gateway 구현
 - 라우팅
 
-7. Deploy / Pipeline 
+---
+
+## 7. Deploy / Pipeline 
 - AWS CodeDeploy, Jenkins 구현
 - CI/CD
 
-8. Circuit Breaker
+---
+
+## 8. Circuit Breaker
 - istio 구현
 - 요청이 과도할 경우 CB 를 통하여 장애격리, 장애전파차단
 
-9. Autoscale(HPA)
+---
+
+## 9. Autoscale(HPA)
 - K8S, HorizontalPodAutoscaler kind
 
-10. Self-Healing(Liveness Probe)
+---
+
+## 10. Self-Healing(Liveness Probe)
 - K8S, livenessProbe (deployment.yml)
 
-11. Zero-Downtime Deploy(Readiness Probe)
+---
+
+## 11. Zero-Downtime Deploy(Readiness Probe)
 - K8S, ReadinessProbe (deployment.yml)
 
-12. Config Map / Persistence Volume
+---
+
+## 12. Config Map / Persistence Volume
 - K8S, ConfigMap kind (configmap.yml)
+
+---
 
 13. Polyglot (X)
 - MongoDB/MariaDB/MYSQL, java(spring)/python(flask,fastAPI)
 - Polyglot Persistence/Programming
 - 각 마이크로 서비스들의 구현 목표와 기능 특성에 따른 각자의 기술 Stack 과 저장소 구조를 다양하게 채택하여 설계
 
+
+---
+
 ## Day 2
 /usr/local/kafka/bin/kafka-console-producer.sh --broker-list http://localhost:9092 --topic team
-
 /usr/local/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic team --from-beginning
-
------
------
-
 
 
 <img src= "https://t1.daumcdn.net/cfile/tistory/997A00365C79475E04?download">
