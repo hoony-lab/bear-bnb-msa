@@ -16,14 +16,17 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private Long reservationId;
-
     private Integer paymentAmount;
-
     private Date paymentDate;
-
     private String paymentStatus;
+
+    public static PaymentRepository repository() {
+        PaymentRepository paymentRepository = PaymentApplication.applicationContext.getBean(
+            PaymentRepository.class
+        );
+        return paymentRepository;
+    }
 
     @PostPersist
     public void onPostPersist() {
@@ -32,18 +35,11 @@ public class Payment {
          PaymentCanceled paymentCanceled = new PaymentCanceled(this);
          paymentCanceled.publishAfterCommit();
          */
-        this.setPaymentStatus("결제완료");
-         PaymentAffirmed paymentAffirmed = new PaymentAffirmed(this);
-         paymentAffirmed.publishAfterCommit();
-         
+        PaymentAffirmed paymentAffirmed = new PaymentAffirmed(this);
+        paymentAffirmed.setPaymentStatus("결제완료");
+        paymentAffirmed.publishAfterCommit();
     }
 
-    public static PaymentRepository repository() {
-        PaymentRepository paymentRepository = PaymentApplication.applicationContext.getBean(
-            PaymentRepository.class
-        );
-        return paymentRepository;
-    }
 
     public static void cancelPayment(
         ReservationCancelRequested reservationCancelRequested
