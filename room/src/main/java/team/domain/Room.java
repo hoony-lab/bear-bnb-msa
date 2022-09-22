@@ -39,6 +39,8 @@ public class Room {
          RoomCancled roomCancled = new RoomCancled(this);
          roomCancled.publishAfterCommit();
          */
+        this.setStatus("등록됨");
+        this.setReviewCnt(0L);
         RoomRegistered roomRegistered = new RoomRegistered(this);
         roomRegistered.publishAfterCommit();
     }
@@ -48,9 +50,11 @@ public class Room {
         RoomModified roomModified = new RoomModified(this);
         roomModified.publishAfterCommit();
     }
+ 
+    
 
-    @PreRemove
-    public void onPreRemove() {
+    @PostRemove
+    public void onPostRemove() {
         RoomDeleted roomDeleted = new RoomDeleted(this);
         roomDeleted.publishAfterCommit();
     }
