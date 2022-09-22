@@ -1,0 +1,25 @@
+//리뷰등록
+http POST localhost:8081/reviews roomId="1" customerId="1" content="좋아요" 
+http POST localhost:8081/reviews roomId="2" customerId="2" content="좋아요2" 
+// 리뷰조회
+http localhost:8081/rooms/1
+//리뷰삭제
+http DELETE localhost:8081/reviews/2
+//리뷰조회
+http localhost:8081/rooms/1
+
+// 방삭제
+http DELETE localhost:8081/rooms/2		
+
+------------------
+//예약
+##http PUT localhost:8082/reservations/1/requestReservation
+http localhost:8082/reservations roomId=1
+http localhost:8082/reservations/1
+//예약요청
+http PUT localhost:8082/reservations/1/requestReservation
+
+http localhost:8082/reservations roomId=3
+
+// 결재
+http POST localhost:8083/payments reservationId="1" 
