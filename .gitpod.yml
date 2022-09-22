@@ -108,9 +108,9 @@ tasks:
     command: >
       cd payment
 
-  - name: viewpage
+  - name: dashboard
     command: >
-      cd viewpage
+      cd dashboard
 
   - name: bash
     command: >
