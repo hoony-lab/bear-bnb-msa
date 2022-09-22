@@ -64,6 +64,10 @@ NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른
 - Feign을 적용하면 번거로운 RestTemplate과 같은 호출 방식을 인터페이스 하나만으로 축소
 
 6. Gateway
+- gateway를 8088포트로 실행하여 gateway를 통해 각 micro service를 호출한다.
+- ![image](https://user-images.githubusercontent.com/61038710/191685577-86b7b303-6bfb-4de6-be9d-cd1a847a0d75.png)
+![image](https://user-images.githubusercontent.com/61038710/191685804-3be93128-64d2-4957-b474-f075db7c9123.png)
+
 - KeyCloak, Spring Gateway 구현
 - 라우팅
 
