@@ -27,11 +27,15 @@ public class Payment {
 
     @PostPersist
     public void onPostPersist() {
-        PaymentCanceled paymentCanceled = new PaymentCanceled(this);
-        paymentCanceled.publishAfterCommit();
-
-        PaymentAffirmed paymentAffirmed = new PaymentAffirmed(this);
-        paymentAffirmed.publishAfterCommit();
+        /*
+         * 
+         PaymentCanceled paymentCanceled = new PaymentCanceled(this);
+         paymentCanceled.publishAfterCommit();
+         */
+        this.setPaymentStatus("결제완료");
+         PaymentAffirmed paymentAffirmed = new PaymentAffirmed(this);
+         paymentAffirmed.publishAfterCommit();
+         
     }
 
     public static PaymentRepository repository() {
@@ -70,11 +74,13 @@ public class Payment {
     public static void affirmPayment(
         ReservationRequested reservationRequested
     ) {
-        /** Example 1:  new item 
+        /** Example 1:  new item  */
         Payment payment = new Payment();
+        payment.setReservationId(reservationRequested.getId());
+        payment.setPaymentStatus("결재완료");
         repository().save(payment);
 
-        */
+       
 
         /** Example 2:  finding and process
         

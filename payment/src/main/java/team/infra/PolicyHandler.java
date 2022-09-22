@@ -42,7 +42,7 @@ public class PolicyHandler {
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='ReservationRequested'"
+        condition = "headers['type']=='ReservationRequested_bak'"
     )
     public void wheneverReservationRequested_AffirmPayment(
         @Payload ReservationRequested reservationRequested

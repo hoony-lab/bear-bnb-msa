@@ -2,6 +2,8 @@ package team.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.*;
 import lombok.Data;
 import team.ReservationApplication;
@@ -33,18 +35,20 @@ public class Reservation {
     public void onPostPersist() {
         //Following code causes dependency to external APIs
         // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-
-        team.external.Payment payment = new team.external.Payment();
-        // mappings goes here
-        ReservationApplication.applicationContext
-            .getBean(team.external.PaymentService.class)
-            .requestPayment(payment);
-
+/*
+ * 
+ team.external.Payment payment = new team.external.Payment();
+ // mappings goes here
+ ReservationApplication.applicationContext
+ .getBean(team.external.PaymentService.class)
+ .requestPayment(payment);
+ */
+        this.setReserveStatus("예약요청");
         ReservationRequested reservationRequested = new ReservationRequested(
             this
         );
         reservationRequested.publishAfterCommit();
-
+/*
         ReservationCancelRequested reservationCancelRequested = new ReservationCancelRequested(
             this
         );
@@ -55,6 +59,7 @@ public class Reservation {
 
         ReservationCanceled reservationCanceled = new ReservationCanceled(this);
         reservationCanceled.publishAfterCommit();
+    */
     }
 
     public static ReservationRepository repository() {
@@ -65,13 +70,18 @@ public class Reservation {
     }
 
     public static void affirmReservation(PaymentAffirmed paymentAffirmed) {
-        /** Example 1:  new item 
-        Reservation reservation = new Reservation();
+        /** Example 1:  new item   */
+        Optional<Reservation> optionalReservation = repository().findById(paymentAffirmed.getReservationId());
+        Reservation reservation = optionalReservation.get();
+        reservation.setPaymentId(paymentAffirmed.getId());
+        reservation.setReserveStatus("예약완료");
+       // reservation.setId(paymentAffirmed.getReservationId());
+        
         repository().save(reservation);
 
         ReservationAffirmed reservationAffirmed = new ReservationAffirmed(reservation);
         reservationAffirmed.publishAfterCommit();
-        */
+      
 
         /** Example 2:  finding and process
         
@@ -111,4 +121,22 @@ public class Reservation {
         */
 
     }
+
+    public void requestReservation() {
+        this.setReserveStatus("예약요청/결제대기");
+        ReservationRequested reservationRequested = new ReservationRequested(
+            this
+        );
+        reservationRequested.publishAfterCommit();
+
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+        team.external.Payment payment = new team.external.Payment();
+        // mappings goes here
+        ReservationApplication.applicationContext
+            .getBean(team.external.PaymentService.class)
+            .requestPayment(payment);
+    }
+     
 }
