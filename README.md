@@ -1,16 +1,32 @@
 # 숙소예약 서비스 (BearBnB not AirBnB)
 
-## DAY 1
+------------
+
 
 1. 분석설계
- > 1. 호스트가 방(Room)을 등록/수정/삭제한다.
- > 2. 고객이 방(Room)을 예약한다.
+ > 1. 호스트가 객실(Room)을 등록/수정/삭제한다.
+ > 2. 고객이 객실(Room)을 예약한다.
  > 3. 예약과 동시에 결제가 진행된다.
  > 4. 고객이 예약을 취소할 수 있다.
- > 5. 방에 후기(review)를 남길 수 있다.
- > 6. 방에 대한 정보를 한 화면에서 확인 할 수 있다.(viewpage)
+ > 5. 객실에 후기(review)를 남길 수 있다.
+ > 6. 객실에 대한 정보를 한 화면(viewpage)에서 확인 할 수 있다.
+![image](https://user-images.githubusercontent.com/61038710/191678655-b61525dc-bead-4f49-bd51-02ea0f8d0b18.png)
 
+
+------------
 2. SAGA Pattern (Pub / Sub)
+  > kafka를 이용하여 4개의 마이크로서비스로 연동한다.
+  + 객실(Room) 
+    + ![image](https://user-images.githubusercontent.com/61038710/191680079-6090ee97-3594-49a1-86d8-f28c59d3e148.png)
+  + 예약(Reservation)
+    + ![image](https://user-images.githubusercontent.com/61038710/191679496-7403a11f-ad6a-4fd3-b07b-11b49675fdf7.png)
+  + 결제(Payment)
+    + ![image](https://user-images.githubusercontent.com/61038710/191679905-5eb4f20d-b986-4344-a158-d50adfb15c06.png)
+  + 대시보드(DashBoard)
+    + ![image](https://user-images.githubusercontent.com/61038710/191679985-85294156-b080-41bb-a8bf-ab325b2f5c9a.png)
+
+    
+
 - Kafka 구현
 - https://sarc.io/index.php/development/2128-saga-pattern
 Saga Pattern은 마이크로 서비스에서 데이터 일관성을 관리하는 방법입니다.
@@ -18,21 +34,29 @@ Saga Pattern은 마이크로 서비스에서 데이터 일관성을 관리하는
 만약, 해당 프로세스가 실패하게 되면 데이터 정합성을 맞추기 위해 이전 트랜잭션에 대해 보상 트랜잭션을 실행합니다.
 NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른 서비스에서 다른 DB 밴더사를 이용할 경우에도 Saga Pattenrn을 이용해서 데이터 일관성을 보장 받을 수 있습니다.
 
-
-
+------------
 
 3. CQRS Pattern (Command Query Responsibility Segregation)
 - ViewPage 구현
 - 명령 / 조회 책임 분리
 - Define a view database, which is a read-only by subscribing
 
+------------
+
 4. Correlation / Compensation(Unique Key)
+  - 객실에 대한 리뷰 등록 및 삭제 시 방(Room)의 리뷰 수(ReviewCnt)가 갱신된다.
+  - 예약 취소 시 결제 취소도 자동으로 수행된다
+  - 결제 후 예약 확정 시 객실에 대한 상태값도 갱신된다.
+![image](https://user-images.githubusercontent.com/61038710/191681833-98d165c9-7925-4608-ab65-85ef2f175e71.png)
+![image](https://user-images.githubusercontent.com/61038710/191681960-6bf0c32b-2332-4139-85a5-81d44f008a72.png)
+
 - 유니크키, FooCancelled 구현
 - 데이터 일관성 처리를 위해 전달하는 key = Correlation-key
 - 트랜젝션 실패 시 데이터의 일관성 유지를 위해 Rollback 처리 가능 = Compensation
 - 데이터 일관성과 무결성 유지 !
 - 상관관계 / 보상
-
+- 
+------------
 5. Request / Response (Feign Client / Sync.Async)
 - @FeignClient(name ="Foofeign", url="api.github.com/foo", configuration = "Config.class")
 - REST 호출을 도와주는 Http Client Binder가 Feign Client 
