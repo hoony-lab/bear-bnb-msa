@@ -5,12 +5,17 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.*;
+
+import org.springframework.boot.actuate.beans.BeansEndpoint.ApplicationBeans;
+
 import lombok.Data;
 import team.ReservationApplication;
 import team.domain.ReservationAffirmed;
 import team.domain.ReservationCancelRequested;
 import team.domain.ReservationCanceled;
 import team.domain.ReservationRequested;
+import team.external.Payment;
+import team.external.PaymentService;
 
 @Entity
 @Table(name = "Reservation_table")
@@ -35,19 +40,22 @@ public class Reservation {
     public void onPostPersist() {
         //Following code causes dependency to external APIs
         // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-/*
- * 
- team.external.Payment payment = new team.external.Payment();
- // mappings goes here
- ReservationApplication.applicationContext
- .getBean(team.external.PaymentService.class)
- .requestPayment(payment);
- */
+
+        // team.external.Payment payment = new team.external.Payment();
+        // // mappings goes here
+        // ReservationApplication.applicationContext
+        // .getBean(team.external.PaymentService.class)
+        // .requestPayment(payment);
+
+        Payment payment = new Payment();
+        PaymentService paymentService = ReservationApplication.applicationContext.getBean(PaymentService.class);
+        paymentService.requestPayment(payment);
+ 
         this.setReserveStatus("예약요청");
         ReservationRequested reservationRequested = new ReservationRequested(
             this
         );
-        reservationRequested.publishAfterCommit();
+        // reservationRequested.publishAfterCommit();
 /*
         ReservationCancelRequested reservationCancelRequested = new ReservationCancelRequested(
             this
