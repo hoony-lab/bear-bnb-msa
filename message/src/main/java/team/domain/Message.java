@@ -30,7 +30,9 @@ public class Message {
         return messageRepository;
     }
 
-    public static void sendReservationMessage(PaymentAffirmed paymentAffirmed) {
+    public static void sendReservationMessage(
+        ReservationAffirmed reservationAffirmed
+    ) {
         /** Example 1:  new item 
         Message message = new Message();
         repository().save(message);
@@ -39,7 +41,7 @@ public class Message {
 
         /** Example 2:  finding and process
         
-        repository().findById(paymentAffirmed.get???()).ifPresent(message->{
+        repository().findById(reservationAffirmed.get???()).ifPresent(message->{
             
             message // do something
             repository().save(message);
@@ -51,7 +53,7 @@ public class Message {
     }
 
     public static void sendCancelReservationMessage(
-        PaymentCanceled paymentCanceled
+        ReservationCanceled reservationCanceled
     ) {
         /** Example 1:  new item 
         Message message = new Message();
@@ -61,7 +63,7 @@ public class Message {
 
         /** Example 2:  finding and process
         
-        repository().findById(paymentCanceled.get???()).ifPresent(message->{
+        repository().findById(reservationCanceled.get???()).ifPresent(message->{
             
             message // do something
             repository().save(message);
