@@ -47,8 +47,8 @@ NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른
   - 객실에 대한 리뷰 등록 및 삭제 시 방(Room)의 리뷰 수(ReviewCnt)가 갱신된다.
   - 예약 취소 시 결제 취소도 자동으로 수행된다
   - 결제 후 예약 확정 시 객실에 대한 상태값도 갱신된다.
-![image](https://user-images.githubusercontent.com/61038710/191681833-98d165c9-7925-4608-ab65-85ef2f175e71.png)
-![image](https://user-images.githubusercontent.com/61038710/191681960-6bf0c32b-2332-4139-85a5-81d44f008a72.png)
+![image](https://user-images.githubusercontent.com/61038710/191683750-bc1633f9-fccd-48aa-bcad-c78dee528e11.png)
+![image](https://user-images.githubusercontent.com/61038710/191683495-f1fc6417-91bb-4097-95bb-6f6ccbb6eb76.png)
 
 - 유니크키, FooCancelled 구현
 - 데이터 일관성 처리를 위해 전달하는 key = Correlation-key
