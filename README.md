@@ -58,6 +58,17 @@ NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른
 - 
 ------------
 5. Request / Response (Feign Client / Sync.Async)
+- `Payment` 서비스가 정상적으로 작동하지 않아도 `PaymentServiceFallback`이 예상 실패 로직을 수행한다.  
+- ![image](https://user-images.githubusercontent.com/44036052/191689742-f3fa55fe-7b74-4680-9f59-6b5a25b855d5.png)
+- ![image](https://user-images.githubusercontent.com/44036052/191689882-d3618edc-ea2e-45f0-99a1-28e047b0199f.png)
+
+- Fallback 로직이 없어서 500에러가 나오는 모습이다.
+- ![image](https://user-images.githubusercontent.com/44036052/191691507-50ed7ea8-368e-47c0-87a7-16a32355b2b8.png)
+- Fallback 로직을 적용 후 500에러가 없는 모습이다.
+- ![image](https://user-images.githubusercontent.com/44036052/191692593-966f90cd-5a1f-456e-ba46-8783cd07eed2.png)
+
+
+
 - @FeignClient(name ="Foofeign", url="api.github.com/foo", configuration = "Config.class")
 - REST 호출을 도와주는 Http Client Binder가 Feign Client 
 - JPA는 인터페이스만으로 그 과정을 모두 축소
