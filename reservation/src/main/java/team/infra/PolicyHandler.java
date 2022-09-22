@@ -26,32 +26,32 @@ public class PolicyHandler {
         value = KafkaProcessor.INPUT,
         condition = "headers['type']=='PaymentAffirmed'"
     )
-    public void wheneverPaymentAffirmed_AffirmPayment(
+    public void wheneverPaymentAffirmed_AffirmReservation(
         @Payload PaymentAffirmed paymentAffirmed
     ) {
         PaymentAffirmed event = paymentAffirmed;
         System.out.println(
-            "\n\n##### listener AffirmPayment : " + paymentAffirmed + "\n\n"
+            "\n\n##### listener AffirmReservation : " + paymentAffirmed + "\n\n"
         );
 
         // Sample Logic //
-        Reservation.affirmPayment(event);
+        Reservation.affirmReservation(event);
     }
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
         condition = "headers['type']=='PaymentCanceled'"
     )
-    public void wheneverPaymentCanceled_CancelPayment(
+    public void wheneverPaymentCanceled_CancelReservation(
         @Payload PaymentCanceled paymentCanceled
     ) {
         PaymentCanceled event = paymentCanceled;
         System.out.println(
-            "\n\n##### listener CancelPayment : " + paymentCanceled + "\n\n"
+            "\n\n##### listener CancelReservation : " + paymentCanceled + "\n\n"
         );
 
         // Sample Logic //
-        Reservation.cancelPayment(event);
+        Reservation.cancelReservation(event);
     }
     // keep
 

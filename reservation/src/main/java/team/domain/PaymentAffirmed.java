@@ -10,19 +10,10 @@ import team.infra.AbstractEvent;
 public class PaymentAffirmed extends AbstractEvent {
 
     private Long id;
-    private Long roomId;
-    private Long paymentId;
-    private Long customerId;
-    private Date reserveDate;
-    private String reserveStatus;
-
-    public PaymentAffirmed(Reservation aggregate) {
-        super(aggregate);
-    }
-
-    public PaymentAffirmed() {
-        super();
-    }
+    private Long reservationId;
+    private Integer paymentAmount;
+    private Date paymentDate;
+    private String paymentStatus;
     // keep
 
 }

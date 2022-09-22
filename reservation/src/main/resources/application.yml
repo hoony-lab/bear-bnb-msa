@@ -39,6 +39,9 @@ logging:
     org.hibernate.type: trace
     org.springframework.cloud: info
 
+api:
+  url:
+    payment: localhost:8083
 
 server:
   port: 8082
@@ -69,4 +72,7 @@ spring:
           destination: team
           contentType: application/json
 
+api:
+  url:
+    payment: payment:8080
 

@@ -1,13 +1,10 @@
-package team.domain;
+package team.external;
 
-import java.util.*;
-import lombok.*;
-import team.domain.*;
-import team.infra.AbstractEvent;
+import java.util.Date;
+import lombok.Data;
 
 @Data
-@ToString
-public class PaymentCanceled extends AbstractEvent {
+public class Payment {
 
     private Long id;
     private Long reservationId;

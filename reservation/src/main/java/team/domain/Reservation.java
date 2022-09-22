@@ -5,9 +5,9 @@ import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 import team.ReservationApplication;
-import team.domain.PaymentAffirmed;
-import team.domain.PaymentCanceled;
+import team.domain.ReservationAffirmed;
 import team.domain.ReservationCancelRequested;
+import team.domain.ReservationCanceled;
 import team.domain.ReservationRequested;
 
 @Entity
@@ -31,6 +31,15 @@ public class Reservation {
 
     @PostPersist
     public void onPostPersist() {
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+        team.external.Payment payment = new team.external.Payment();
+        // mappings goes here
+        ReservationApplication.applicationContext
+            .getBean(team.external.PaymentService.class)
+            .requestPayment(payment);
+
         ReservationRequested reservationRequested = new ReservationRequested(
             this
         );
@@ -41,11 +50,11 @@ public class Reservation {
         );
         reservationCancelRequested.publishAfterCommit();
 
-        PaymentAffirmed paymentAffirmed = new PaymentAffirmed(this);
-        paymentAffirmed.publishAfterCommit();
+        ReservationAffirmed reservationAffirmed = new ReservationAffirmed(this);
+        reservationAffirmed.publishAfterCommit();
 
-        PaymentCanceled paymentCanceled = new PaymentCanceled(this);
-        paymentCanceled.publishAfterCommit();
+        ReservationCanceled reservationCanceled = new ReservationCanceled(this);
+        reservationCanceled.publishAfterCommit();
     }
 
     public static ReservationRepository repository() {
@@ -55,13 +64,13 @@ public class Reservation {
         return reservationRepository;
     }
 
-    public static void affirmPayment(PaymentAffirmed paymentAffirmed) {
+    public static void affirmReservation(PaymentAffirmed paymentAffirmed) {
         /** Example 1:  new item 
         Reservation reservation = new Reservation();
         repository().save(reservation);
 
-        PaymentAffirmed paymentAffirmed = new PaymentAffirmed(reservation);
-        paymentAffirmed.publishAfterCommit();
+        ReservationAffirmed reservationAffirmed = new ReservationAffirmed(reservation);
+        reservationAffirmed.publishAfterCommit();
         */
 
         /** Example 2:  finding and process
@@ -71,21 +80,21 @@ public class Reservation {
             reservation // do something
             repository().save(reservation);
 
-            PaymentAffirmed paymentAffirmed = new PaymentAffirmed(reservation);
-            paymentAffirmed.publishAfterCommit();
+            ReservationAffirmed reservationAffirmed = new ReservationAffirmed(reservation);
+            reservationAffirmed.publishAfterCommit();
 
          });
         */
 
     }
 
-    public static void cancelPayment(PaymentCanceled paymentCanceled) {
+    public static void cancelReservation(PaymentCanceled paymentCanceled) {
         /** Example 1:  new item 
         Reservation reservation = new Reservation();
         repository().save(reservation);
 
-        PaymentCanceled paymentCanceled = new PaymentCanceled(reservation);
-        paymentCanceled.publishAfterCommit();
+        ReservationCanceled reservationCanceled = new ReservationCanceled(reservation);
+        reservationCanceled.publishAfterCommit();
         */
 
         /** Example 2:  finding and process
@@ -95,8 +104,8 @@ public class Reservation {
             reservation // do something
             repository().save(reservation);
 
-            PaymentCanceled paymentCanceled = new PaymentCanceled(reservation);
-            paymentCanceled.publishAfterCommit();
+            ReservationCanceled reservationCanceled = new ReservationCanceled(reservation);
+            reservationCanceled.publishAfterCommit();
 
          });
         */
