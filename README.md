@@ -3,8 +3,12 @@
 ## DAY 1
 
 1. 분석설계
-- 4개 Boundary Context
-- Room, Reservation, Payment, Message, (+ViewPage)
+ > 1. 호스트가 방(Room)을 등록/수정/삭제한다.
+ > 2. 고객이 방(Room)을 예약한다.
+ > 3. 예약과 동시에 결제가 진행된다.
+ > 4. 고객이 예약을 취소할 수 있다.
+ > 5. 방에 후기(review)를 남길 수 있다.
+ > 6. 방에 대한 정보를 한 화면에서 확인 할 수 있다.(viewpage)
 
 2. SAGA Pattern (Pub / Sub)
 - Kafka 구현
@@ -13,6 +17,9 @@ Saga Pattern은 마이크로 서비스에서 데이터 일관성을 관리하는
 각 서비스는 로컬 트랜잭션을 가지고 있으며, 해당 서비스 데이터를 업데이트하며 메시지 또는 이벤트를 발행해서, 다음 단계 트랜잭션을 호출하게 됩니다.
 만약, 해당 프로세스가 실패하게 되면 데이터 정합성을 맞추기 위해 이전 트랜잭션에 대해 보상 트랜잭션을 실행합니다.
 NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른 서비스에서 다른 DB 밴더사를 이용할 경우에도 Saga Pattenrn을 이용해서 데이터 일관성을 보장 받을 수 있습니다.
+
+
+
 
 3. CQRS Pattern (Command Query Responsibility Segregation)
 - ViewPage 구현
