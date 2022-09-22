@@ -18,18 +18,18 @@ public class ReservationController {
     @Autowired
     ReservationRepository reservationRepository;
 
-    // @RequestMapping(value = "reservations/{roomId}/requestReservation",
-    // method = RequestMethod.PUT,
-    // produces = "application/json;charset=UTF-8")
-    // public Reservation requestReservation(@PathVariable(value = "roomId") Long roomId, HttpServletRequest request, HttpServletResponse response) throws Exception {
-    //     System.out.println("##### /reservation/requestReservation  called #####");
-    //     Reservation reservation = new Reservation();
-    //     reservation.setRoomId(roomId);
-    //     // reservation.requestReservation();
+    @RequestMapping(value = "reservations/{roomId}/requestReservation",
+    method = RequestMethod.PUT,
+    produces = "application/json;charset=UTF-8")
+    public Reservation requestReservation(@PathVariable(value = "roomId") Long roomId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("##### /reservation/requestReservation  called #####");
+        Reservation reservation = new Reservation();
+        reservation.setRoomId(roomId);
+        reservation.requestReservation();
         
-    //     reservationRepository.save(reservation);
-    //     return reservation;
+        reservationRepository.save(reservation);
+        return reservation;
         
-    // }
+    }
     // keep
 }

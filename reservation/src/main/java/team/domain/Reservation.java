@@ -20,32 +20,40 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private Long roomId;
+
     private Long paymentId;
+
     private Long customerId;
+
     private Date reserveDate;
+
     private String reserveStatus;
-    
-    public static ReservationRepository repository() {
-        ReservationRepository reservationRepository = ReservationApplication.applicationContext.getBean(
-            ReservationRepository.class
-        );
-        return reservationRepository;
-    }
 
     @PostPersist
     public void onPostPersist() {
-        ReservationRequested reservationRequested = new ReservationRequested(this);
-        reservationRequested.setReserveStatus("예약요청");
-        // reservationRequested.publishAfterCommit();
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+/*
+ * 
+ team.external.Payment payment = new team.external.Payment();
+ // mappings goes here
+ ReservationApplication.applicationContext
+ .getBean(team.external.PaymentService.class)
+ .requestPayment(payment);
+ */
+        this.setReserveStatus("예약요청");
+        ReservationRequested reservationRequested = new ReservationRequested(
+            this
+        );
+        reservationRequested.publishAfterCommit();
+/*
+        ReservationCancelRequested reservationCancelRequested = new ReservationCancelRequested(
+            this
+        );
+        reservationCancelRequested.publishAfterCommit();
 
-        team.external.Payment payment = new team.external.Payment();
-        // mappings goes here
-        ReservationApplication.applicationContext
-            .getBean(team.external.PaymentService.class)
-            .requestPayment(payment);
-
-        /*
         ReservationAffirmed reservationAffirmed = new ReservationAffirmed(this);
         reservationAffirmed.publishAfterCommit();
 
@@ -54,12 +62,12 @@ public class Reservation {
     */
     }
 
-    @PreUpdate
-    public void onPreUpdate() {
-        ReservationCancelRequested reservationCancelRequested = new ReservationCancelRequested(this);
-        reservationCancelRequested.publishAfterCommit();
+    public static ReservationRepository repository() {
+        ReservationRepository reservationRepository = ReservationApplication.applicationContext.getBean(
+            ReservationRepository.class
+        );
+        return reservationRepository;
     }
-
 
     public static void affirmReservation(PaymentAffirmed paymentAffirmed) {
         /** Example 1:  new item   */
@@ -114,21 +122,21 @@ public class Reservation {
 
     }
 
-    // public void requestReservation() {
-    //     this.setReserveStatus("예약요청/결제대기");
-    //     // ReservationRequested reservationRequested = new ReservationRequested(
-    //     //     this
-    //     // );
-    //     // reservationRequested.publishAfterCommit();
+    public void requestReservation() {
+        this.setReserveStatus("예약요청/결제대기");
+        ReservationRequested reservationRequested = new ReservationRequested(
+            this
+        );
+        reservationRequested.publishAfterCommit();
 
-    //     //Following code causes dependency to external APIs
-    //     // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
-    //     team.external.Payment payment = new team.external.Payment();
-    //     // mappings goes here
-    //     ReservationApplication.applicationContext
-    //         .getBean(team.external.PaymentService.class)
-    //         .requestPayment(payment);
-    // }
+        team.external.Payment payment = new team.external.Payment();
+        // mappings goes here
+        ReservationApplication.applicationContext
+            .getBean(team.external.PaymentService.class)
+            .requestPayment(payment);
+    }
      
 }

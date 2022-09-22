@@ -17,34 +17,34 @@ import team.domain.RoomRegistered;
 @Table(name = "Room_table")
 @Data
 public class Room {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long reservationId;
-    private String status;
-    private Double price;
-    private Long reviewCnt;
 
-    public static RoomRepository repository() {
-        RoomRepository roomRepository = RoomApplication.applicationContext.getBean(RoomRepository.class);
-        return roomRepository;
-    }
+    private Long reservationId;
+
+    private String status;
+
+    private Double price;
+
+    private Long reviewCnt;
 
     @PostPersist
     public void onPostPersist() {
+        /*
+         * 
+         RoomAffirmed roomAffirmed = new RoomAffirmed(this);
+         roomAffirmed.publishAfterCommit();
+         
+         RoomCancled roomCancled = new RoomCancled(this);
+         roomCancled.publishAfterCommit();
+         */
+        this.setStatus("등록됨");
+        this.setReviewCnt(0L);
         RoomRegistered roomRegistered = new RoomRegistered(this);
-        roomRegistered.setStatus("등록됨");
-        roomRegistered.setReviewCnt(0L);
         roomRegistered.publishAfterCommit();
     }
-    /*
-     * 
-     RoomAffirmed roomAffirmed = new RoomAffirmed(this);
-     roomAffirmed.publishAfterCommit();
-     
-     RoomCancled roomCancled = new RoomCancled(this);
-     roomCancled.publishAfterCommit();
-     */
 
     @PreUpdate
     public void onPreUpdate() {
@@ -52,10 +52,19 @@ public class Room {
         roomModified.publishAfterCommit();
     }
  
+    
+
     @PostRemove
     public void onPostRemove() {
         RoomDeleted roomDeleted = new RoomDeleted(this);
         roomDeleted.publishAfterCommit();
+    }
+
+    public static RoomRepository repository() {
+        RoomRepository roomRepository = RoomApplication.applicationContext.getBean(
+            RoomRepository.class
+        );
+        return roomRepository;
     }
 
     public void registerRoom() {
@@ -101,11 +110,13 @@ public class Room {
         if(null != room2.get().getReviewCnt()){
             reviewCnt = room2.get().getReviewCnt();
         }
-        room.setReviewCnt(--reviewCnt);
+       // room.setReviewCnt(reviewCnt++);;
+       room.setReviewCnt(--reviewCnt);
         
         repository().save(room);
 
         
+
         /** Example 2:  finding and process
         
         repository().findById(reviewDeleted.get???()).ifPresent(room->{
@@ -116,6 +127,7 @@ public class Room {
 
          });
         */
+
     }
 
     public static void affirmRoom(ReservationAffirmed reservationAffirmed) {
@@ -139,6 +151,7 @@ public class Room {
 
          });
         */
+
     }
 
     public static void cancelRoom(ReservationCanceled reservationCanceled) {
@@ -162,5 +175,6 @@ public class Room {
 
          });
         */
+
     }
 }
