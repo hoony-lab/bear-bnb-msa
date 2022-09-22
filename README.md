@@ -37,6 +37,11 @@ NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른
 ------------
 
 3. CQRS Pattern (Command Query Responsibility Segregation)
+![image](https://user-images.githubusercontent.com/44036052/191693434-c8098af4-2df0-49af-82ae-54698b1be5ff.png)
+![image](https://user-images.githubusercontent.com/44036052/191693680-c86f7edb-40bc-4e40-890a-fd5353054692.png)
+![image](https://user-images.githubusercontent.com/44036052/191693812-56832582-4ff9-49b3-bd31-e08733b9cf0a.png)
+![image](https://user-images.githubusercontent.com/44036052/191693918-64fdc629-5b5d-4af7-b23a-30a5b71bb0a0.png)
+
 - ViewPage 구현
 - 명령 / 조회 책임 분리
 - Define a view database, which is a read-only by subscribing
