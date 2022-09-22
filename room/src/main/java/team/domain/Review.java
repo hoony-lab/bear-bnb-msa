@@ -45,9 +45,11 @@ public class Review  {
     @PostPersist
     public void onPostPersist(){
 
-
-        ReviewDeleted reviewDeleted = new ReviewDeleted(this);
-        reviewDeleted.publishAfterCommit();
+        /*
+         * 
+         ReviewDeleted reviewDeleted = new ReviewDeleted(this);
+         reviewDeleted.publishAfterCommit();
+         */
 
 
 
@@ -55,6 +57,13 @@ public class Review  {
         reviewRegistered.publishAfterCommit();
 
     }
+
+    @PostRemove
+    public void onPostRemove(){   
+         ReviewDeleted reviewDeleted = new ReviewDeleted(this);
+         reviewDeleted.publishAfterCommit();
+    }
+    
     @PreRemove
     public void onPreRemove(){
     }

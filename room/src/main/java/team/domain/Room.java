@@ -2,6 +2,8 @@ package team.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.*;
 import lombok.Data;
 import team.RoomApplication;
@@ -29,11 +31,16 @@ public class Room {
 
     @PostPersist
     public void onPostPersist() {
-        RoomAffirmed roomAffirmed = new RoomAffirmed(this);
-        roomAffirmed.publishAfterCommit();
-
-        RoomCancled roomCancled = new RoomCancled(this);
-        roomCancled.publishAfterCommit();
+        /*
+         * 
+         RoomAffirmed roomAffirmed = new RoomAffirmed(this);
+         roomAffirmed.publishAfterCommit();
+         
+         RoomCancled roomCancled = new RoomCancled(this);
+         roomCancled.publishAfterCommit();
+         */
+        RoomRegistered roomRegistered = new RoomRegistered(this);
+        roomRegistered.publishAfterCommit();
     }
 
     @PreUpdate
@@ -61,11 +68,20 @@ public class Room {
     }
 
     public static void updateReviewCnt(ReviewRegistered reviewRegistered) {
-        /** Example 1:  new item 
+        /** Example 1:  new item */
         Room room = new Room();
+        room.setId(reviewRegistered.getRoomId());
+        Long reviewCnt = 0L;
+        Optional<Room> room2 = repository().findById(room.getId());
+        if(null != room2.get().getReviewCnt()){
+            reviewCnt = room2.get().getReviewCnt();
+        }
+       // room.setReviewCnt(reviewCnt++);;
+       room.setReviewCnt(++reviewCnt);
+        
         repository().save(room);
 
-        */
+       
 
         /** Example 2:  finding and process
         
@@ -81,11 +97,20 @@ public class Room {
     }
 
     public static void updateReviewCnt(ReviewDeleted reviewDeleted) {
-        /** Example 1:  new item 
+        /** Example 1:  new item */
         Room room = new Room();
+        room.setId(reviewDeleted.getRoomId());
+        Long reviewCnt = 0L;
+        Optional<Room> room2 = repository().findById(room.getId());
+        if(null != room2.get().getReviewCnt()){
+            reviewCnt = room2.get().getReviewCnt();
+        }
+       // room.setReviewCnt(reviewCnt++);;
+       room.setReviewCnt(--reviewCnt);
+        
         repository().save(room);
 
-        */
+        
 
         /** Example 2:  finding and process
         
