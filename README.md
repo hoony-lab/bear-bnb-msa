@@ -1,4 +1,4 @@
-# 숙소예약 서비스 (BearBnB not AirBnB)
+# 숙소예약 서비스 (BearBnB)
 
 ---
 
