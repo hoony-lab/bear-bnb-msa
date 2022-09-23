@@ -110,6 +110,7 @@ Auto Scale-Out 증명
 ![image](https://user-images.githubusercontent.com/61038710/191877224-25215551-53ff-4ce2-a1f3-0bce6851cf79.png)
 ![image](https://user-images.githubusercontent.com/61038710/191877369-79feb764-9566-4e0f-ac91-5d19530359d2.png)
 ![image](https://user-images.githubusercontent.com/61038710/191878847-6c9207b1-5f1f-4eea-8040-66e39c520f46.png)
+![image](https://user-images.githubusercontent.com/61038710/191896508-cbcc8e85-c7eb-4d71-bbb5-25d52c61a006.png)
 
 
 - K8S, HorizontalPodAutoscaler kind
