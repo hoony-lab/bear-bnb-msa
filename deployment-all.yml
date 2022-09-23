@@ -114,7 +114,8 @@ spec:
       containers:
         - name: reservation
           # image: eunjong4421/reservation:v1
-          image: sosimisy/reservation:v1
+          # image: sosimisy/reservation:v1
+          image: jihun9838/reservation:v1
           ports:
             - containerPort: 8080
           readinessProbe:
