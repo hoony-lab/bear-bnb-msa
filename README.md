@@ -123,8 +123,10 @@ Auto Scale-Out 증명
 ---
 
 ## 11. Zero-Downtime Deploy(Readiness Probe)
-- K8S, ReadinessProbe (deployment.yml)
-- 
+- 클러스터에 배포를 할때 readinessProbe 설정이 없으면 다운타임이 존재 하게 된다. 이는 쿠버네티스에서 Ramped 배포 방식으로 무정지 배포를 시도 하지만, 서비스가 기동하는 시간이 있기 때문에, 기동 시간동안 장애가 발생 할 수 있다.
+
+- 배포시 다운타임의 존재 여부를 확인하기 위하여, siege 라는 부하 테스트 툴을 사용한다.
+
 - ![image](https://user-images.githubusercontent.com/44036052/191896717-28b4e863-ca37-40aa-8b06-50cd62b2a920.png)
 - ![image](https://user-images.githubusercontent.com/44036052/191896788-b6422c35-9f55-41ba-89ab-76147d5d6472.png)
 - ![image](https://user-images.githubusercontent.com/44036052/191896669-1771dffc-0748-4708-a9ac-6b0fef957ad9.png)
@@ -133,7 +135,7 @@ Auto Scale-Out 증명
 - ![image](https://user-images.githubusercontent.com/44036052/191896792-754a0e29-7997-4128-bc4b-94bee2d1dd3b.png)
 - ![image](https://user-images.githubusercontent.com/44036052/191896767-3394fc2e-8aac-4eb5-8064-abfa7ef74886.png)
 
-
+- K8S, ReadinessProbe (deployment.yml)
 ---
 
 ## 12. Config Map / Persistence Volume
