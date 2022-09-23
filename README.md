@@ -120,6 +120,7 @@ Auto Scale-Out 증명
 ## 10. Self-Healing(Liveness Probe)
 - Pod는 정상적으로 작동하지만 내부의 어플리케이션이 반응이 없다면, 컨테이너는 의미가 없다.
 - ![image](https://user-images.githubusercontent.com/44036052/191902080-38cc26cc-3660-405e-859a-acff95bdc990.png)
+- ![image](https://user-images.githubusercontent.com/44036052/191902266-53874dfc-1c1f-44e4-a1c9-3c9ccbae245a.png)
 - ![image](https://user-images.githubusercontent.com/44036052/191902007-d35b7ebf-7e67-422b-853a-88e8616b5cf0.png)
 
 - K8S, livenessProbe (deployment.yml)
