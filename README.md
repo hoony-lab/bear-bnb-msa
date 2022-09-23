@@ -9,7 +9,7 @@
   - 고객이 예약을 취소할 수 있다.
   - 객실에 후기(review)를 남길 수 있다.
   - 객실에 대한 정보를 한 화면(dashboard)에서 확인 할 수 있다.  
-![image](https://user-images.githubusercontent.com/61038710/191678655-b61525dc-bead-4f49-bd51-02ea0f8d0b18.png)
+  ![image](https://user-images.githubusercontent.com/61038710/191873690-ac5e4a08-5933-428e-91e8-2bad1a79306a.png)
 
 ---
 
