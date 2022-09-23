@@ -124,6 +124,15 @@ Auto Scale-Out 증명
 
 ## 11. Zero-Downtime Deploy(Readiness Probe)
 - K8S, ReadinessProbe (deployment.yml)
+- 
+- ![image](https://user-images.githubusercontent.com/44036052/191896717-28b4e863-ca37-40aa-8b06-50cd62b2a920.png)
+- ![image](https://user-images.githubusercontent.com/44036052/191896788-b6422c35-9f55-41ba-89ab-76147d5d6472.png)
+- ![image](https://user-images.githubusercontent.com/44036052/191896669-1771dffc-0748-4708-a9ac-6b0fef957ad9.png)
+
+- ![image](https://user-images.githubusercontent.com/44036052/191896746-e8761e02-e0fb-4f85-b1b3-6fca79006679.png)
+- ![image](https://user-images.githubusercontent.com/44036052/191896792-754a0e29-7997-4128-bc4b-94bee2d1dd3b.png)
+- ![image](https://user-images.githubusercontent.com/44036052/191896767-3394fc2e-8aac-4eb5-8064-abfa7ef74886.png)
+
 
 ---
 
