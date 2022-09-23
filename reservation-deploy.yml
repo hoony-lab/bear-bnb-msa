@@ -1,9 +1,106 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: dashboard
+  labels:
+    app: dashboard
+    pjt: msa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard
+  template:
+    metadata:
+      labels:
+        app: dashboard
+    spec:
+      containers:
+        - name: dashboard
+          image: eunjong4421/dashboard:v1
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+    pjt: msa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+        - name: gateway
+          image: eunjong4421/gateway:v1
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message
+  labels:
+    app: message
+    pjt: msa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: message
+  template:
+    metadata:
+      labels:
+        app: message
+    spec:
+      containers:
+        - name: message
+          image: eunjong4421/message:v1
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  labels:
+    app: payment
+    pjt: msa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+        - name: payment
+          image: eunjong4421/payment:v1
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: reservation
   labels:
     app: reservation
+    pjt: msa
 spec:
   replicas: 1
   selector:
@@ -16,7 +113,49 @@ spec:
     spec:
       containers:
         - name: reservation
-          image: eunjong4421/reservation:v1
+          # image: eunjong4421/reservation:v1
+          image: sosimisy/reservation:v1
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              # path: '/actuator/health'
+              path: '/reservations'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+          
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: room
+  labels:
+    app: room
+    pjt: msa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: room
+  template:
+    metadata:
+      labels:
+        app: room
+    spec:
+      containers:
+        - name: room
+          image: eunjong4421/room:v1
           ports:
             - containerPort: 8080
           
