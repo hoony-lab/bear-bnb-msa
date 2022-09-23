@@ -105,6 +105,13 @@ NoSQL 같이 분산 트랜잭션 처리를 지원하지 않거나, 각기 다른
 ---
 
 ## 9. Autoscale(HPA)
+Auto Scale-Out 증명
+![image](https://user-images.githubusercontent.com/61038710/191877057-c50eb488-ad29-4d81-95b9-39d5f2af9f7b.png)
+![image](https://user-images.githubusercontent.com/61038710/191877224-25215551-53ff-4ce2-a1f3-0bce6851cf79.png)
+![image](https://user-images.githubusercontent.com/61038710/191877369-79feb764-9566-4e0f-ac91-5d19530359d2.png)
+![image](https://user-images.githubusercontent.com/61038710/191878847-6c9207b1-5f1f-4eea-8040-66e39c520f46.png)
+
+
 - K8S, HorizontalPodAutoscaler kind
 
 ---
